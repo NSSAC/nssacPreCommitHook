@@ -1,3 +1,16 @@
+# BEGIN: Copyright 
+# Copyright (C) 2019 Rector and Visitors of the University of Virginia 
+# All rights reserved 
+# END: Copyright 
+
+# BEGIN: License 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at 
+#  
+#   http://www.apache.org/licenses/LICENSE-2.0 
+# END: License 
+
 import os
 import re
 import tempfile
@@ -82,7 +95,7 @@ class Header:
         
         EmptyLine = re.compile('^\\s*$')
         Skip = False
-        SkipEmpty = False
+        SkipEmpty = True
         
         for Line in Input:
             if Skip:
@@ -114,17 +127,15 @@ class Header:
         LinesToWrite = 0
         
         for p in prolog:
-            MaxLines = p["MaxLines"] if "MaxLines" in p else 0
-            Unlimited = MaxLines == 0
+            MaxLines = p["maxLines"] if "maxLines" in p else 0
+            Unlimited = (MaxLines == 0)
             PrologEnd = re.compile(p["end"])
             Finished = False
             LinesToWrite = 0
-            Line = ""
                   
-            while not Finished and (Unlimited or MaxLines > 0):
-                Line = file.readline()
-                
-                if Line == "": break
+            for Line in file:
+                if not Unlimited and MaxLines <= 0:
+                    break
                 
                 LinesToWrite += 1
                 MaxLines -= 1
@@ -133,17 +144,22 @@ class Header:
                     Finished = True
                     break
                 
-                
-            
-            if Finished or Line == "":
+            file.seek(0)
+        
+            if Finished:
                 break
         
-        file.seek(0)
-        
-        while LinesToWrite > 0:
-            LinesToWrite -= 1
-            self.output.write(file.readline())
+        if Finished:
             
+            AppendLine = False
+            while LinesToWrite > 0:
+                AppendLine = True
+                LinesToWrite -= 1
+                self.output.write(file.readline())
+                
+            if AppendLine:
+                self.output.write("\n")
+                
     def writeCopyright(self, firstYear, lastYear):
         self.writeComment("BEGIN: Copyright")
         

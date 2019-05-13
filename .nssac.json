@@ -10,7 +10,7 @@
   "copyright": [
     {
       "text": [
-        "Copyright (C) {s} Rector and Visitors of the University of Virginia",
+        "Copyright (C) {:s} Rector and Visitors of the University of Virginia",
         "All rights reserved"
       ]
     }
@@ -54,7 +54,10 @@
       "commentStart": "#"
     },
     {
-      "include": ["*.py"],
+      "include": [
+        "*.py",
+        "bin/preCommitHook"
+      ],
       "commentStart": "#",
       "prolog": [
         {

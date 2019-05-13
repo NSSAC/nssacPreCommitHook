@@ -3,10 +3,12 @@
 
 \.pydevproject
 
-nssacPreCommitHook/__pycache__/
+__pycache__/
 
 build/
 
 dist/
 
 gitTools\.xpr
+
+nssacPreCommitHook\.egg-info/
