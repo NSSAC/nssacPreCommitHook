@@ -1,0 +1,111 @@
+{
+  "$schema": "../schema/preCommitHook.json",
+  "license": [
+    "Licensed under the Apache License, Version 2.0 (the \"License\");",
+    "you may not use this file except in compliance with the License.",
+    "You may obtain a copy of the License at",
+    "",
+    "  http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "copyright": [
+    {
+      "text": [
+        "Copyright (C) {:s} by Pedro Mendes, Rector and Visitors of the",
+        "University of Virginia, University of Heidelberg, and University",
+        "of Connecticut School of Medicine.",
+        "All rights reserved."
+      ],
+      "startYear": 2019
+    },
+    {
+      "text": [
+        "Copyright (C) {:s} by Pedro Mendes, Virginia Tech Intellectual",
+        "Properties, Inc., University of Heidelberg, and University of",
+        "of Connecticut School of Medicine.",
+        "All rights reserved."
+      ],
+      "startYear": 2017
+    },
+    {
+      "text": [
+        "Copyright (C) {:s} by Pedro Mendes, Virginia Tech Intellectual",
+        "Properties, Inc., University of Heidelberg, and The University",
+        "of Manchester.",
+        "All rights reserved."
+      ],
+      "startYear": 2010
+    },
+    {
+      "text": [
+        "Copyright (C) {:s} by Pedro Mendes, Virginia Tech Intellectual",
+        "Properties, Inc., EML Research, gGmbH, University of Heidelberg,",
+        "and The University of Manchester.",
+        "All rights reserved."
+      ],
+      "startYear": 2008
+    },
+    {
+      "text": [
+        "Copyright (C) {:s} by Pedro Mendes, Virginia Tech Intellectual",
+        "Properties, Inc. and EML Research, gGmbH.",
+        "All rights reserved."
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "include": [
+        "*.cpp",
+        "*.hpp",
+        "*.c",
+        "*.h",
+        "*.h.in",
+        "*.java"
+      ],
+      "commentStart": "//"
+    },
+    {
+      "include": [
+        "*.xsd",
+        "*.xml",
+        "*.rng"
+      ],
+      "commentStart": "<!--",
+      "commentEnd": "-->",
+      "prolog": [
+        {"end": ">"}
+      ]
+    },
+    {
+      "include": [
+      	"*.sh",
+      	"pre-commit"
+      ],
+      "commentStart": "#",
+      "prolog": [
+        {
+          "end": "#!",
+          "maxLines": 1
+        }
+      ]
+    },
+    {
+      "include": ["*.cmake"],
+      "commentStart": "#"
+    },
+    {
+      "include": ["*.py"],
+      "commentStart": "#",
+      "prolog": [
+        {
+          "end": "^[ \t\f]*#.*?coding[:=][ \t]*([-_.a-zA-Z0-9]+)",
+          "maxLines": 2
+        },
+        {
+          "end": "#!",
+          "maxLines": 1
+        }
+      ]
+    }
+  ]
+}

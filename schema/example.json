@@ -1,0 +1,64 @@
+{
+  "$schema": "./preCommitHook.json",
+  "copyright": [
+    {
+      "text": [
+        "Copyright (C) {s} Rector and Visitors of the University of Virginia",
+        "All rights reserved"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "include": [
+        "*.cpp",
+        "*.hpp",
+        "*.c",
+        "*.h",
+        "*.h.in",
+        "*.java"
+      ],
+      "commentStart": "//"
+    },
+    {
+      "include": [
+        "*.xsd",
+        "*.xml",
+        "*.rng"
+      ],
+      "commentStart": "<!--",
+      "commentEnd": "-->",
+      "prolog": [
+        {"end": ">"}
+      ]
+    },
+    {
+      "include": ["*.sh"],
+      "commentStart": "#",
+      "prolog": [
+        {
+          "end": "#!",
+          "maxLines": 1
+        }
+      ]
+    },
+    {
+      "include": ["*.cmake"],
+      "commentStart": "#"
+    },
+    {
+      "include": ["*.py"],
+      "commentStart": "#",
+      "prolog": [
+        {
+          "end": "^[ \t\f]*#.*?coding[:=][ \t]*([-_.a-zA-Z0-9]+)",
+          "maxLines": 2
+        },
+        {
+          "end": "#!",
+          "maxLines": 1
+        }
+      ]
+    }
+  ]
+}

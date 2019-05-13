@@ -1,0 +1,10 @@
+
+\.project
+
+\.pydevproject
+
+nssacPreCommitHook/__pycache__/
+
+build/
+
+dist/
