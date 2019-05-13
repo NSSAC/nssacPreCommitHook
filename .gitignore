@@ -8,3 +8,5 @@ nssacPreCommitHook/__pycache__/
 build/
 
 dist/
+
+gitTools\.xpr
