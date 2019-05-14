@@ -32,6 +32,8 @@ if not arguments.config:
     arguments.config = [] 
     arguments.config.append(os.path.join(arguments.repository[0], ".nssac.json"))
 
+arguments.config[0] = os.path.abspath(arguments.config[0])
+
 preCommitHook = PreCommitHook(arguments.config[0], Git(repo_path=arguments.repository[0]))
 
 if not arguments.init:
