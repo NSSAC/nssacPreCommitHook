@@ -50,7 +50,10 @@
       ]
     },
     {
-      "include": ["*.cmake"],
+      "include": [
+        "*.cmake", 
+        "CMakeLists.txt"
+      ],
       "commentStart": "#"
     },
     {
