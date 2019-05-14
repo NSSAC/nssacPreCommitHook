@@ -30,9 +30,12 @@ preCommitHook --init -r repository -c Path_to_Example
 If you saved the example as repository/.nssac.json you may ommit `-c Path_to_Example`
 
 ## Suported file formats:
-* _C/C++* "*.cpp", "*.hpp", "*.c", "*.h", "*.h.in"
-* Java "*.java"
-* XML "*.xsd", "*.xml", "*.rng"
-* Shell "*.sh"
-* CMake "*.cmake", "CMakeLists.txt"
-* Python "*.py"
+The patterns section of the example currently supports the following formats
+* __C/C++__ "*.cpp", "*.hpp", "*.c", "*.h", "*.h.in"
+* __Java__ "*.java"
+* __XML__ "*.xsd", "*.xml", "*.rng"
+* __Shell__ "*.sh"
+* __CMake__ "*.cmake", "CMakeLists.txt"
+* __Python__ "*.py"
+
+It is not difficult to add more file types often is is just adding another pattern to the include section of an exiting pattern.
