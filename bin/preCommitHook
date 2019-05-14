@@ -26,11 +26,14 @@ parser.add_argument("--init", action='store_true', help = "Apply license and cop
 
 arguments = parser.parse_args()
 
+arguments.repository[0] = os.path.abspath(arguments.repository[0])
+
 if not arguments.config:
     arguments.config = [] 
     arguments.config.append(os.path.join(arguments.repository[0], ".nssac.json"))
 
 preCommitHook = PreCommitHook(arguments.config[0], Git(repo_path=arguments.repository[0]))
+
 if not arguments.init:
     preCommitHook.run()
 else:

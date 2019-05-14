@@ -12,6 +12,7 @@
 # END: License 
 
 import os
+import re
 import tempfile
 from shutil import copyfile
 from pathspec import PathSpec
@@ -20,6 +21,7 @@ from pathspec.patterns import GitWildMatchPattern
 from nssacPreCommitHook.header import Header
 from nssacPreCommitHook.configuration import Configuration
 from nssacPreCommitHook.git import Status
+from pickle import FALSE
 
 class PreCommitHook:
     def __init__(self, configFile, git):
@@ -47,7 +49,9 @@ class PreCommitHook:
         # Change to the git repository directory
         Out, Err, Code = self.git("rev-parse", "--show-toplevel")
         Result = Out.splitlines()
-        os.chdir(Result[0])
+        self.repoDir = Result[0]
+         
+        os.chdir(self.repoDir)
         
         self.header = Header(self.git, self.configuration["copyright"], self.configuration["license"])
         
@@ -90,6 +94,55 @@ class PreCommitHook:
                 os.remove(TmpFile)
                     
     def initRepo(self):
+        FileName = ".git/hooks/pre-commit"
+        
+        if os.path.isfile(FileName):
+            File = open(FileName, "r")
+            TmpFile = tempfile.mktemp()
+            NewHook = open(TmpFile, "w")
+            # Check whether we have already installed nssacPreCommitHook
+            CheckInstalled = re.compile("preCommitHook (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
+
+            Installed = False
+            Modified = False
+            
+            for Line in File:
+                Match = CheckInstalled.search(Line)
+                 
+                if Match:
+                    Groups = Match.groups()
+
+                    if Groups[1].strip('"') == self.repoDir:
+                        Installed = True
+                        break
+                    else:
+                        NewHook.write("preCommitHook -r \"{:s}\"{:s}".format(self.repoDir, Groups[4]))
+                        Modified = True
+                    continue
+                else:
+                    NewHook.write(Line)
+            
+            if not Modified and not Installed:
+                NewHook.write("preCommitHook -r \"{:s}\"\n".format(self.repoDir))
+                
+            File.close()
+            NewHook.close()
+            
+            if not Installed:
+                copyfile(TmpFile, FileName)
+                
+            os.remove(TmpFile)
+                
+        else:
+            File = open(FileName, "w+")
+            File.write("#!/bin/sh\n")
+            File.write("\n")
+            File.write("# NSSAC pre-commit hook to maintain copyrights and license.\n")
+            File.write("preCommitHook -r \"{:s}\" -c \"{:s}\"\n".format(self.repoDir, self.configFile))
+            File.close()
+            
+        os.chmod(FileName, 0o755)
+                
         GitFiles, Err, Code = self.git("ls-files")
         
         for Line in GitFiles.splitlines():
