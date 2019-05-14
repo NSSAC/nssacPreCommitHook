@@ -21,6 +21,18 @@ Two examples are provided:
   * [Example 2](https://github.com/NSSAC/nssacPreCommitHook/blob/master/test/example.json)
   
 ## Enable nssacPreCommitHook for a repository
+Download [Example](https://github.com/NSSAC/nssacPreCommitHook/blob/master/schema/example.json) and save it. 
+
 ``` shell
-preCommitHook --init -r repository 
+preCommitHook --init -r repository -c Path_to_Example
 ```
+
+If you saved the example as repository/.nssac.json you may ommit `-c Path_to_Example`
+
+## Suported file formats:
+* _C/C++* "*.cpp", "*.hpp", "*.c", "*.h", "*.h.in"
+* Java "*.java"
+* XML "*.xsd", "*.xml", "*.rng"
+* Shell "*.sh"
+* CMake "*.cmake", "CMakeLists.txt"
+* Python "*.py"
