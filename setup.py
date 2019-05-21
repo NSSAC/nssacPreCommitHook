@@ -25,5 +25,6 @@ setup(name='nssacPreCommitHook',
       scripts=["bin/preCommitHook"],
       install_requires=[
           'jsonschema',
+          'pathspec',
       ],
       zip_safe=False)
