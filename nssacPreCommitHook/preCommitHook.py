@@ -104,7 +104,7 @@ class PreCommitHook:
             TmpFile = tempfile.mktemp()
             NewHook = open(TmpFile, "w")
             # Check whether we have already installed nssacPreCommitHook
-            CheckInstalled = re.compile("preCommitHook.* (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
+            CheckInstalled = re.compile("preCommitHook\.py.* (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
 
             Installed = False
             Modified = False
