@@ -7,13 +7,14 @@
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
 # You may obtain a copy of the License at 
-#  
 #   http://www.apache.org/licenses/LICENSE-2.0 
 # END: License 
 
 import os
 import re
 import tempfile
+import sys
+
 from shutil import copyfile
 from pathspec import PathSpec
 from pathspec.patterns import GitWildMatchPattern
@@ -45,6 +46,8 @@ class PreCommitHook:
                 p["exclude"] = PathSpec(map(GitWildMatchPattern, p["exclude"]))
                 
         self.git = git
+        self.python = sys.executable
+        self.script = os.path.realpath(__file__)
         
         # Change to the git repository directory
         Out, Err, Code = self.git("rev-parse", "--show-toplevel")
@@ -101,7 +104,7 @@ class PreCommitHook:
             TmpFile = tempfile.mktemp()
             NewHook = open(TmpFile, "w")
             # Check whether we have already installed nssacPreCommitHook
-            CheckInstalled = re.compile("preCommitHook (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
+            CheckInstalled = re.compile("preCommitHook.* (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
 
             Installed = False
             Modified = False
@@ -116,14 +119,14 @@ class PreCommitHook:
                         Installed = True
                         break
                     else:
-                        NewHook.write("preCommitHook -r \"{:s}\"{:s}".format(self.repoDir, Groups[4]))
+                        NewHook.write("\"{:s}\" \"{:s}\" -r \"{:s}\"{:s}".format(self.python, self.script, self.repoDir, Groups[4]))
                         Modified = True
                     continue
                 else:
                     NewHook.write(Line)
             
             if not Modified and not Installed:
-                NewHook.write("preCommitHook -r \"{:s}\"\n".format(self.repoDir))
+                NewHook.write("\"{:s}\" \"{:s}\" -r \"{:s}\"\n".format(self.python, self.script, self.repoDir))
                 
             File.close()
             NewHook.close()
@@ -138,7 +141,7 @@ class PreCommitHook:
             File.write("#!/bin/sh\n")
             File.write("\n")
             File.write("# NSSAC pre-commit hook to maintain copyrights and license.\n")
-            File.write("preCommitHook -r \"{:s}\" -c \"{:s}\"\n".format(self.repoDir, self.configFile))
+            File.write("\"{:s}\" \"{:s}\" -r \"{:s}\" -c \"{:s}\"\n".format(self.python, self.script, self.repoDir, self.configFile))
             File.close()
             
         os.chmod(FileName, 0o755)
