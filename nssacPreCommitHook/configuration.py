@@ -69,6 +69,7 @@ class Configuration:
                       "commentStart"
                     ],
                     "properties": {
+                      "description": {"type": "string"},
                       "include": {
                         "type": "array",
                         "items": {"$ref": "#/definitions/gitWildMatchPattern"},
