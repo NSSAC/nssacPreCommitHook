@@ -4,15 +4,28 @@
 
 Clone the repository and execute one of the following:
 
+### Linux and MacOS X
+* System installation
+``` sh
+sudo ./setup.py install
+```
+
 * User local installation
-``` shell
+``` sh
 ./setup.py install --user
 ```
 
-* System installation
-``` shell
-sudo ./setup.py install
+### Windows
+* System installation (start search cmd, right click runs as administrator)
+``` sh
+setup.py install
 ```
+
+* User local installation (not recommeded as the script path is not in the search PATH)
+``` sh
+setup.py install --user
+```
+
 ## Configuration
 The configuration uses a [JSON schema](https://github.com/NSSAC/nssacPreCommitHook/blob/master/schema/preCommitHook.json) to specify the license and the copyright statements to be used.
 
@@ -23,8 +36,8 @@ Two examples are provided:
 ## Enable nssacPreCommitHook for a repository
 Download [Example](https://github.com/NSSAC/nssacPreCommitHook/blob/master/schema/example.json) and save it. 
 
-``` shell
-preCommitHook --init -r repository -c Path_to_Example
+``` sh
+preCommitHook.py --init -r repository -c Path_to_Example
 ```
 
 If you saved the example as repository/.nssac.json you may ommit `-c Path_to_Example`
