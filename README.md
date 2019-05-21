@@ -2,28 +2,26 @@
 
 ## Install
 
-Clone the repository and execute one of the following:
-
 ### Linux and MacOS X
-* System installation
+* System wide installation
 ``` sh
-sudo ./setup.py install
+sudo pip install nssacPreCommitHook
 ```
 
 * User local installation
 ``` sh
-./setup.py install --user
+pip install nssacPreCommitHook --user
 ```
 
 ### Windows
-* System installation (start search cmd, right click runs as administrator)
+* System installation [(Instructions on how to run a console as administrator)](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
 ``` sh
-setup.py install
+ pip install nssacPreCommitHook
 ```
 
 * User local installation (not recommeded as the script path is not in the search PATH)
 ``` sh
-setup.py install --user
+pip install nssacPreCommitHook --user
 ```
 
 ## Configuration
