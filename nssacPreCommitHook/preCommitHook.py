@@ -126,7 +126,7 @@ class PreCommitHook:
                     NewHook.write(Line)
             
             if not Modified and not Installed:
-                NewHook.write("\"{:s}\" \"{:s}\" -r \"{:s}\"\n".format(self.python, self.script, self.repoDir))
+                NewHook.write("\"{:s}\" \"{:s}\" -r \"{:s}\" -c \"{:s}\"\n".format(self.python, self.script, self.repoDir, self.configFile))
                 
             File.close()
             NewHook.close()
