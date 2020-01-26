@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # BEGIN: Copyright 
-# Copyright (C) 2019 Rector and Visitors of the University of Virginia 
+# Copyright (C) 2019 - 2020 Rector and Visitors of the University of Virginia 
 # All rights reserved 
 # END: Copyright 
 
@@ -33,7 +33,7 @@ if not arguments.config:
 
 arguments.config[0] = os.path.abspath(arguments.config[0])
 
-preCommitHook = PreCommitHook(arguments.config[0], Git(repo_path=arguments.repository[0]))
+preCommitHook = PreCommitHook(arguments.config[0], Git(repo_path=arguments.repository[0]), os.path.realpath(__file__))
 
 if not arguments.init:
     preCommitHook.run()

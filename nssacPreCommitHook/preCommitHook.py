@@ -1,5 +1,5 @@
 # BEGIN: Copyright 
-# Copyright (C) 2019 Rector and Visitors of the University of Virginia 
+# Copyright (C) 2019 - 2020 Rector and Visitors of the University of Virginia 
 # All rights reserved 
 # END: Copyright 
 
@@ -25,7 +25,7 @@ from nssacPreCommitHook.git import Status
 from pickle import FALSE
 
 class PreCommitHook:
-    def __init__(self, configFile, git):
+    def __init__(self, configFile, git, script):
         self.configFile = configFile
         self.configuration = Configuration().loadJsonFile(configFile)
         
@@ -47,7 +47,7 @@ class PreCommitHook:
                 
         self.git = git
         self.python = sys.executable
-        self.script = os.path.realpath(__file__)
+        self.script = script
         
         # Change to the git repository directory
         Out, Err, Code = self.git("rev-parse", "--show-toplevel")
