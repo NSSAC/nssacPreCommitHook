@@ -33,7 +33,7 @@ if not arguments.config:
 
 arguments.config[0] = os.path.abspath(arguments.config[0])
 
-preCommitHook = PreCommitHook(arguments.config[0], Git(repo_path=arguments.repository[0]), os.path.realpath(__file__))
+preCommitHook = PreCommitHook(arguments.config[0], git.Git(repo_path=arguments.repository[0]), os.path.realpath(__file__))
 
 if not arguments.init:
     preCommitHook.run()
