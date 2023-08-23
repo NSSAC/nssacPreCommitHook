@@ -14,7 +14,7 @@
 
 import argparse
 import os
-from nssacPreCommitHook.git.git import Git
+from nssacPreCommitHook.git import git
 from nssacPreCommitHook.preCommitHook import PreCommitHook
 
 parser = argparse.ArgumentParser(description="nssacPreCommitHook: A pre commit hook used to maintain license and copyright information in source files.")
