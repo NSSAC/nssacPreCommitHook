@@ -78,6 +78,9 @@
         "additionalProperties": false
       },
       "minItems": 1
+    },
+    "encoding": {
+      "type": "string"
     }
   },
   "patternProperties": {

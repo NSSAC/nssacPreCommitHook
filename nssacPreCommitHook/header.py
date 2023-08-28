@@ -16,10 +16,9 @@ import tempfile
 from datetime import datetime
 from shutil import copyfile
 import chardet
-# from nssacPreCommitHook.git import Git, Status
 
 class Header:
-    def __init__(self, _git, _copyright, _license = None):
+    def __init__(self, _git, _copyright, _license = None, _encoding = 'utf-8'):
         
         self.copyrights = _copyright
         
@@ -32,6 +31,7 @@ class Header:
         self.git = _git
         self.copyrights = sorted(self.copyrights, key = lambda i: i["startYear"], reverse = True)
         self.license = _license
+        self.encoding = _encoding
         self.commentStart = ""
         self.commentEnd = ""
         self.output = None
@@ -46,12 +46,9 @@ class Header:
                 
         copyfile(inFile, TmpFile)
           
-        self.output = open(inFile, "w")
+        self.output = open(inFile, "w", encoding=self.encoding)
 
-        # Try to work around choking on ISO-8859-1 files (etc.)
-        with open(TmpFile, "rb") as fh:
-            guess_encoding = chardet.detect(fh.read())['encoding']
-        Input = open(TmpFile, "r", encoding=guess_encoding)
+        Input = open(TmpFile, "r", encoding=self.encoding)
 
         self.skipProlog(Input, prolog)
         

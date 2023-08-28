@@ -97,6 +97,9 @@ class Configuration:
                     "additionalProperties": False
                   },
                   "minItems": 1
+                },
+                  "encoding": {
+                    "type": "string"
                 }
               },
               "patternProperties": {
@@ -129,6 +132,9 @@ class Configuration:
             schema = self.schema
             
         validate(dictionary, schema)
+        
+        if not 'encoding' in dictionary:
+            dictionary['encoding'] = 'utf-8'
             
         jsonFile.close()
         return dictionary

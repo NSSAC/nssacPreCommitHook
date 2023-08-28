@@ -18,7 +18,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(name='nssacPreCommitHook',
-    version='1.0.3',
+    version='1.0.4',
     description='A pre commit hook used to maintain license and copyright information in source files.',
     url='http://github.com/NSSAC/nssacPreCommitHook',
     author='Stefan Hoops',

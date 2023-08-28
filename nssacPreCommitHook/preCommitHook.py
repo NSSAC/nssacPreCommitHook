@@ -56,7 +56,7 @@ class PreCommitHook:
          
         os.chdir(self.repoDir)
         
-        self.header = Header(self.git, self.configuration["copyright"], self.configuration["license"])
+        self.header = Header(self.git, self.configuration["copyright"], self.configuration["license"], self.configuration["encoding"])
         
         return
     
@@ -88,8 +88,8 @@ class PreCommitHook:
                 Apply, Err, Code = self.git.applyPatch(Patch)
                 
                 if Code:
-                    OutFile = open(FileStatus.path, "w")
-                    InFile = open(TmpFile, "r")
+                    OutFile = open(FileStatus.path, "w", encoding=self.configuration["encoding"])
+                    InFile = open(TmpFile, "r", encoding=self.configuration["encoding"])
                     OutFile.write(InFile.read())
                     OutFile.close()
                     InFile.close()
@@ -100,9 +100,9 @@ class PreCommitHook:
         FileName = ".git/hooks/pre-commit"
         
         if os.path.isfile(FileName):
-            File = open(FileName, "r")
+            File = open(FileName, "r", encoding=self.configuration["encoding"])
             TmpFile = tempfile.mktemp()
-            NewHook = open(TmpFile, "w")
+            NewHook = open(TmpFile, "w", encoding=self.configuration["encoding"])
             # Check whether we have already installed nssacPreCommitHook
             CheckInstalled = re.compile("preCommitHook\.py.* (-r|--repository) (\"([^\"\\n]+)\"|([^ \\n]+))(.*)\\n")
 
@@ -137,7 +137,7 @@ class PreCommitHook:
             os.remove(TmpFile)
                 
         else:
-            File = open(FileName, "w+")
+            File = open(FileName, "w+", encoding=self.configuration["encoding"])
             File.write("#!/bin/sh\n")
             File.write("\n")
             File.write("# NSSAC pre-commit hook to maintain copyrights and license.\n")
