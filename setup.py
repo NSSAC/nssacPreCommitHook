@@ -31,6 +31,7 @@ setuptools.setup(name='nssacPreCommitHook',
     install_requires=[
         'jsonschema',
         'pathspec',
+        'chardet'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
